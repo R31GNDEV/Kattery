@@ -1,6 +1,10 @@
+#define kOriginalBarCount 4
+
+static NSArray<UIColor *> *colors;
+
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
-#include <objc/runtime.h>                                                                                              
+#include <objc/runtime.h>                                                                                        
 /*
  ██╗  ██╗█████╗█████████████████████████████╗██╗   ██╗
  ██║ ██╔██╔══██╚══██╔══╚══██╔══██╔════██╔══██╚██╗ ██╔╝
@@ -70,6 +74,19 @@ Created by:
 - (id)_labelTextColor;
 - (id)_batteryFillColor;
 @end
+@class _UIStatusBarCycleAnimation;
+
+@interface _UIStatusBarSignalView : UIView
+@property (assign,nonatomic) NSInteger numberOfBars;
+@property (assign,nonatomic) NSInteger numberOfActiveBars;
+@property (nonatomic,copy) UIColor * bodyColor;
+@property (nonatomic,copy) UIColor * shadowColor; 
+@property (nonatomic,copy) UIColor * activeColor;  
+@end
+@interface _UIStatusBarCellularSignalView : _UIStatusBarSignalView
+// Sublayers are CALayers
+// Set the color by modifying the sublayer's backgroundColor
+@end
 /*
 
 Convert our Color HEX
@@ -102,6 +119,24 @@ UIColor* fuckingHexColors(NSString* hexString) {
 NSUserDefaults *_preferences;
 BOOL _enabled;
 
+%hook _UIStatusBarSignalView
+-(CALayer *)layer {
+  CALayer *origLayer = %orig; //our origLayer is what this method would have originally returned
+  CGFloat setShadowRadius = [_preferences floatForKey:@"wifiShadowRadius"];
+  if (!(setShadowRadius >= 0)){
+    setShadowRadius = 1;
+  }
+  origLayer.shadowRadius = 6;
+  origLayer.shadowOffset = CGSizeMake(0.0f,1.0f);
+  origLayer.shadowOpacity = 2;
+  NSString *wifiShadowColorString = [_preferences objectForKey:@"wifiGlow"];
+  if (wifiShadowColorString) {
+	origLayer.shadowColor = fuckingHexColors(wifiShadowColorString).CGColor;
+  }
+  return origLayer;
+}
+%end
+
 %hook _UIBatteryView
 -(void)setShowsInlineChargingIndicator:(BOOL)enabled {
     %orig(0);
@@ -126,12 +161,12 @@ BOOL _enabled;
 -(id)fillColor {
 	UIColor *outer;
 	if (self.chargingState != 1) {
-		NSString *fillColorChargingString1 = [_preferences objectForKey:@"fillColor1"];
+		NSString *fillColorChargingString1 = [_preferences objectForKey:@"inactiveColor"];
 		if (fillColorChargingString1) {
 			outer = fuckingHexColors(fillColorChargingString1);
 		}
 	} else if (self.chargingState != 0) {
-		NSString *fillColorChargingString2 = [_preferences objectForKey:@"fillColor2"];
+		NSString *fillColorChargingString2 = [_preferences objectForKey:@"activeColor"];
 		if (fillColorChargingString2) {
 			outer = fuckingHexColors(fillColorChargingString2);
 		}
@@ -197,6 +232,7 @@ BOOL _enabled;
 	_enabled = [_preferences boolForKey:@"enabled"];
 	if(_enabled) {
 		NSLog(@"[Kattery] ON");
+		colors = @[[UIColor redColor], [UIColor orangeColor], [UIColor yellowColor], [UIColor greenColor], [UIColor blueColor], [UIColor purpleColor]];
 		%init();
 	} else {
 		NSLog(@"[Kattery] OFF");
