@@ -17,5 +17,5 @@ Kattery_FILES = $(wildcard *.x)
 Kattery_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk
-SUBPROJECTS += kattery
+SUBPROJECTS += katteryprefs
 include $(THEOS_MAKE_PATH)/aggregate.mk

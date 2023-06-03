@@ -22,7 +22,7 @@ def handle_file(file):
 
     if header == IOS13_HEADER:
         print(f'converting "{file.name}" CPU Subtype from iOS13 (00000002) to iOS14 (80000002)')
-        print(f'Fuck Yeah Bitttchh!!! You just built a rootless copy of Kattery! >:3 Keep on hackin girly.')
+        print(f'Fuck Yeah Bitttchh!!! You just built a rootless copy of Kattery!')
         file.write_bytes(IOS14_HEADER + buf)
     elif header == IOS14_HEADER:
         print(f'converting "{file.name}" CPU Subtype from iOS14 (80000002) to iOS13 (00000002)')

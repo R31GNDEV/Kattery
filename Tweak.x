@@ -1,6 +1,6 @@
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
-#include <objc/runtime.h>                                                                                                        
+#include <objc/runtime.h>                                                                                              
 /*
  ██╗  ██╗█████╗█████████████████████████████╗██╗   ██╗
  ██║ ██╔██╔══██╚══██╔══╚══██╔══██╔════██╔══██╚██╗ ██╔╝
@@ -48,6 +48,7 @@ Created by:
 @property (nonatomic,retain) _UIBatteryViewAXHUDImageCacheInfo * accessibilityHUDImageCacheInfo;              //@synthesize accessibilityHUDImageCacheInfo=_accessibilityHUDImageCacheInfo - In the implementation block
 @property (nonatomic,retain) CALayer * bodyLayer;                                                             //@synthesize bodyLayer=_bodyLayer - In the implementation block
 @property (nonatomic,retain) CALayer * fillLayer;                                                             //@synthesize fillLayer=_fillLayer - In the implementation block
+@property (nonatomic,retain) CALayer * pinLayer;                                                             //@synthesize fillLayer=_fillLayer - In the implementation block
 @property (assign,nonatomic) long long internalSizeCategory;                                                  //@synthesize internalSizeCategory=_internalSizeCategory - In the implementation block
 @property (assign,nonatomic) BOOL showsPercentage;                                                            //@synthesize showsPercentage=_showsPercentage - In the implementation block
 @property (assign,nonatomic) double bodyColorAlpha;                                                           //@synthesize bodyColorAlpha=_bodyColorAlpha - In the implementation block
@@ -57,9 +58,14 @@ Created by:
 @property (assign,nonatomic) double lowBatteryChargePercentThreshold;                                         //@synthesize lowBatteryChargePercentThreshold=_lowBatteryChargePercentThreshold - In the implementation block
 @property (getter=isLowBattery,nonatomic,readonly) BOOL lowBattery; 
 @property (assign,nonatomic) BOOL showsInlineChargingIndicator;                                               //@synthesize showsInlineChargingIndicator=_showsInlineChargingIndicator - In the implementation block
-@property (nonatomic,copy) UIColor * fillColor;                                                               //@synthesize fillColor=_fillColor - In the implementation block
-@property (nonatomic,copy) UIColor * bodyColor;                                                               //@synthesize bodyColor=_bodyColor - In the implementation block
-@property (readonly) unsigned long long hash; 
+@property (nonatomic,copy) UIColor * fillColor;
+@property (nonatomic,copy) UIColor * bodyColor;
+@property (nonatomic,copy) UIColor * shadowColor;  
+@property (nonatomic,copy) UIColor * pinColor;                                                              //@synthesize bodyColor=_bodyColor - In the implementation block
+@property(null_resettable, nonatomic, strong) UIColor * tintColor;
+@property (readonly) unsigned long long hash;
+@property CGFloat shadowRadius;
+@property float shadowOpacity;
 -(void)setFillColor:(UIColor *)arg1 ;
 - (id)_labelTextColor;
 - (id)_batteryFillColor;
@@ -70,7 +76,7 @@ Convert our Color HEX
 
 */
 
-UIColor* colorFromHexString(NSString* hexString) {
+UIColor* fuckingHexColors(NSString* hexString) {
     NSString *daString = [hexString stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (![daString containsString:@"#"]) {
         daString = [@"#" stringByAppendingString:daString];
@@ -96,31 +102,91 @@ UIColor* colorFromHexString(NSString* hexString) {
 NSUserDefaults *_preferences;
 BOOL _enabled;
 
-
 %hook _UIBatteryView
 -(void)setShowsInlineChargingIndicator:(BOOL)enabled {
     %orig(0);
 }
--(void)setFillColor:(bool)enabled {
-	[self = [UIColor.cyanColor].CGColor];
-	%orig(0);
-}
+
 -(void)setShowsPercentage:(bool)arg1 {
     %orig(YES);
 }
 
--(CALayer *)layer {
-	CALayer *origLayer = %orig;
-	NSString *colorOneString = [_preferences objectForKey:@"borderColor"];
-	NSLog(@"[*]Boobs are real. %@", colorOneString);
-	if (colorOneString) {
-		origLayer.borderColor = colorFromHexString(colorOneString);
-	}
-	%orig(_enabled);
+-(NSArray *)subviews {
+ id subviews = %orig;
+ NSString *labelColor1 = [_preferences objectForKey:@"labelColor"];
+ for (UILabel * origSubview in subviews) {
+  if ([origSubview isMemberOfClass:[UILabel class]]) {
+   //our subview is a UILabel!
+   origSubview.textColor = fuckingHexColors(labelColor1);
+  }
+ }
+ return subviews;
 }
 
-%end
+-(id)fillColor {
+	UIColor *outer;
+	if (self.chargingState != 1) {
+		NSString *fillColorChargingString1 = [_preferences objectForKey:@"fillColor1"];
+		if (fillColorChargingString1) {
+			outer = fuckingHexColors(fillColorChargingString1);
+		}
+	} else if (self.chargingState != 0) {
+		NSString *fillColorChargingString2 = [_preferences objectForKey:@"fillColor2"];
+		if (fillColorChargingString2) {
+			outer = fuckingHexColors(fillColorChargingString2);
+		}
+	}
+	return outer ? outer : [UIColor systemPinkColor];
+}
 
+-(id)_batteryColor {
+	UIColor *sparkle;
+	if (self.chargingState != 1) {
+		NSString *pinColorChargingString1 = [_preferences objectForKey:@"pinColor1"];
+		if (pinColorChargingString1) {
+			sparkle = fuckingHexColors(pinColorChargingString1);
+		}
+	} else if (self.chargingState != 0) {
+		NSString *pinColorChargingString2 = [_preferences objectForKey:@"pinColor2"];
+		if (pinColorChargingString2) {
+			sparkle = fuckingHexColors(pinColorChargingString2);
+		}
+	}
+	return sparkle ? sparkle : [UIColor systemPinkColor];
+}
+
+-(id)_batteryFillColor {
+    UIColor *boobs;
+    if (self.chargingState != 1) {
+            NSString *batteryFillColorString = [_preferences objectForKey:@"batteryFillColor"];
+            if (batteryFillColorString) {
+                boobs = fuckingHexColors(batteryFillColorString);
+            }
+    } else if (self.chargingState != 0) {
+            NSString *lowBatteryString = [_preferences objectForKey:@"lowBattery"];
+            if (lowBatteryString) {
+                boobs = fuckingHexColors(lowBatteryString);
+            }
+    }
+    return boobs ? boobs : [UIColor cyanColor];
+}
+
+-(CALayer *)layer {
+  CALayer *origLayer = %orig; //our origLayer is what this method would have originally returned
+  origLayer.shadowOpacity = 2;
+  origLayer.shadowRadius = 6;
+  origLayer.shadowOffset = CGSizeMake(0.0f,1.0f);
+  NSString *shadowColorString = [_preferences objectForKey:@"shadowColor"];
+  NSLog(@"[*]Kattery Glow Started: %@",shadowColorString);
+  if (shadowColorString) {
+   origLayer.shadowColor = fuckingHexColors(shadowColorString).CGColor; 
+  }
+  else {
+    NSLog(@"[*]Kattery failed: %@",shadowColorString);
+  }
+  return origLayer;
+}
+%end
 
 %ctor {
 	_preferences = [[NSUserDefaults alloc] initWithSuiteName:@"online.transrights.kattery"];

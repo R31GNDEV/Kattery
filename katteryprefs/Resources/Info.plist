@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>kattery</string>
+	<string>katteryprefs</string>
 	<key>CFBundleIdentifier</key>
 	<string>online.transrights.kattery</string>
 	<key>CFBundleInfoDictionaryVersion</key>

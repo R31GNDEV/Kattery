@@ -6,4 +6,4 @@ Description: An awesome MobileSubstrate tweak!
 Maintainer: Kota & Snoolie
 Author: Kota & Snoolie
 Section: Tweaks
-Depends: mobilesubstrate (>= 0.9.5000), preferenceloader (>= 2.2.3)
+Depends: mobilesubstrate (>= 0.9.5000), preferenceloader (>= 2.2.3),  ws.hbang.alderis (>= 1.1)
