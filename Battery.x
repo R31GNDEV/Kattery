@@ -1,10 +1,6 @@
-#define kOriginalBarCount 4
-
-static NSArray<UIColor *> *colors;
-
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
-#include <objc/runtime.h>                                                                                        
+#include <objc/runtime.h>                                                                                      
 /*
  ██╗  ██╗█████╗█████████████████████████████╗██╗   ██╗
  ██║ ██╔██╔══██╚══██╔══╚══██╔══██╔════██╔══██╚██╗ ██╔╝
@@ -17,6 +13,7 @@ Created by:
   - Snoolie
 
     Private Tweak
+    Meow.x
 */
 
 
@@ -82,6 +79,9 @@ Created by:
 @property (nonatomic,copy) UIColor * bodyColor;
 @property (nonatomic,copy) UIColor * shadowColor; 
 @property (nonatomic,copy) UIColor * activeColor;  
+@property (nonatomic,retain) UILabel * percentageLabel;
+@property CGFloat chargePercent;
+
 @end
 @interface _UIStatusBarCellularSignalView : _UIStatusBarSignalView
 // Sublayers are CALayers
@@ -138,6 +138,7 @@ BOOL _enabled;
 %end
 
 %hook _UIBatteryView
+
 -(void)setShowsInlineChargingIndicator:(BOOL)enabled {
     %orig(0);
 }
@@ -223,41 +224,22 @@ BOOL _enabled;
 }
 %end
 
-%hook _UIStatusBarWifiSignalView
--(UIColor*)activeColor {
- return [UIColor greenColor];
-}
--(UIColor*)inactiveColor {
- return [UIColor redColor];
-}
-%end
-%hook _UIStatusBarCellularSignalView
--(UIColor*)activeColor {
- return [UIColor greenColor];
-}
--(UIColor*)inactiveColor {
- return [UIColor redColor];
+%hook _UIStatusBarStringView
+-(void)setText:(NSString *)text {
+ %orig(text);
 }
 %end
 
-
-%hook _UIStatusBarImageView
-//airplane mode, rotation, dnd, alarm, vpn etc
--(UIColor *)tintColor {
- return [UIColor systemPinkColor];
-}
-%end
 
 %ctor {
 	_preferences = [[NSUserDefaults alloc] initWithSuiteName:@"online.transrights.kattery"];
 	[_preferences registerDefaults:@{
 		@"enabled" : @YES,
-
+    
 	}];
 	_enabled = [_preferences boolForKey:@"enabled"];
 	if(_enabled) {
 		NSLog(@"[Kattery] ON");
-		colors = @[[UIColor redColor], [UIColor orangeColor], [UIColor yellowColor], [UIColor greenColor], [UIColor blueColor], [UIColor purpleColor]];
 		%init();
 	} else {
 		NSLog(@"[Kattery] OFF");
