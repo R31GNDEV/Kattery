@@ -223,6 +223,31 @@ BOOL _enabled;
 }
 %end
 
+%hook _UIStatusBarWifiSignalView
+-(UIColor*)activeColor {
+ return [UIColor greenColor];
+}
+-(UIColor*)inactiveColor {
+ return [UIColor redColor];
+}
+%end
+%hook _UIStatusBarCellularSignalView
+-(UIColor*)activeColor {
+ return [UIColor greenColor];
+}
+-(UIColor*)inactiveColor {
+ return [UIColor redColor];
+}
+%end
+
+
+%hook _UIStatusBarImageView
+//airplane mode, rotation, dnd, alarm, vpn etc
+-(UIColor *)tintColor {
+ return [UIColor systemPinkColor];
+}
+%end
+
 %ctor {
 	_preferences = [[NSUserDefaults alloc] initWithSuiteName:@"online.transrights.kattery"];
 	[_preferences registerDefaults:@{
