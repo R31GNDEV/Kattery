@@ -1,7 +1,7 @@
 before-package::
 	python3 abi.py $(THEOS_OBJ_DIR)/arm64e/*.dylib
 
-TARGET := iphone:clang:13.0
+TARGET := iphone:clang:12.0
 PREFIX = $(THEOS)/toolchain/linux/usr/bin/
 SYSROOT = $(THEOS)/sdks/iPhoneOS13.7.sdk
 INSTALL_TARGET_PROCESSES = SpringBoard

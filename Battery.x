@@ -114,28 +114,8 @@ UIColor* fuckingHexColors(NSString* hexString) {
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:[alphaString floatValue]];
 }
 
-
-
 NSUserDefaults *_preferences;
 BOOL _enabled;
-
-%hook _UIStatusBarSignalView
--(CALayer *)layer {
-  CALayer *origLayer = %orig; //our origLayer is what this method would have originally returned
-  CGFloat setShadowRadius = [_preferences floatForKey:@"wifiShadowRadius"];
-  if (!(setShadowRadius >= 0)){
-    setShadowRadius = 1;
-  }
-  origLayer.shadowRadius = 6;
-  origLayer.shadowOffset = CGSizeMake(0.0f,1.0f);
-  origLayer.shadowOpacity = 2;
-  NSString *wifiShadowColorString = [_preferences objectForKey:@"wifiGlow"];
-  if (wifiShadowColorString) {
-	origLayer.shadowColor = fuckingHexColors(wifiShadowColorString).CGColor;
-  }
-  return origLayer;
-}
-%end
 
 %hook _UIBatteryView
 
@@ -222,12 +202,15 @@ BOOL _enabled;
   }
   return origLayer;
 }
+
 %end
 
 %hook _UIStatusBarStringView
+
 -(void)setText:(NSString *)text {
  %orig(text);
 }
+
 %end
 
 
