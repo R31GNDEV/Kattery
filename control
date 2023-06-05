@@ -2,9 +2,9 @@ Package: online.transrights.kattery
 Name: Kattery
 Version: 1.0.0
 Architecture: iphoneos-arm
-Description: An awesome MobileSubstrate tweak!
+Description: Make your wifi, cellular, and battery glow! (With colors!!!)
 Maintainer: Kota & Snoolie
 Author: Kota & Snoolie
 Section: Tweaks
 Depends: mobilesubstrate (>= 0.9.5000), preferenceloader (>= 2.2.3),  ws.hbang.alderis (>= 1.1)
-Icon: https://media.discordapp.net/attachments/1083531040397721711/1114993477026054194/RoundedIcon_3.png
+Icon: https://raw.githubusercontent.com/R31GNDEV/Kattery/main/katteryprefs/Resources/icon%402x.png
