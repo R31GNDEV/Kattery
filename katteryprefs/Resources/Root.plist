@@ -352,6 +352,12 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Misc Image Settings</string>
+		</dict>
+		<dict>
+			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>cellClass</key>
 			<string>HBColorPickerTableCell</string>
@@ -363,6 +369,24 @@
 			<string>ImageShadowColor</string>
 			<key>label</key>
 			<string>Image Glow</string>
+			<key>showAlphaSlider</key>
+			<true/>
+			<key>PostNotification</key>
+			<string>online.transrights.kattery/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>HBColorPickerTableCell</string>
+			<key>defaults</key>
+			<string>online.transrights.kattery</string>
+			<key>default</key>
+			<string>#33b5e5</string>
+			<key>key</key>
+			<string>realImageColor</string>
+			<key>label</key>
+			<string>Image Color</string>
 			<key>showAlphaSlider</key>
 			<true/>
 			<key>PostNotification</key>

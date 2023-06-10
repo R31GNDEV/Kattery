@@ -34,7 +34,7 @@ def handle_file(file):
     if header == IOS13_HEADER:
         print(f'{bcolors.PINK}converting "{file.name}" CPU Subtype from iOS13 (00000002) to iOS14 (80000002)')
         print(f'{bcolors.KOTAWINS}Fuck Yeah Bitttchh!!! You just built a rootless copy of Kattery!')
-        print(f'I like boobs & women.')
+        print(f'I like boobs & women.  ( . Y . )')
         file.write_bytes(IOS14_HEADER + buf)
     elif header == IOS14_HEADER:
         print(f'{bcolors.KOTAWINS}converting "{file.name}" CPU Subtype from iOS14 (80000002) to iOS13 (00000002)')

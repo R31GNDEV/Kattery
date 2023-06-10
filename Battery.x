@@ -123,6 +123,15 @@ BOOL _enabled;
 
 %hook _UIStatusBarImageView
 
+-(id)tintColor {
+	UIColor *meow;
+	NSString *realImageColorString = [_preferences objectForKey:@"realImageColor"];
+	if (realImageColorString) {
+		meow = fuckingHexColors(realImageColorString);
+	}
+	return meow ? meow : [UIColor systemPinkColor];
+}
+
 -(CALayer *)layer {
   CALayer *origLayer = %orig; //our origLayer is what this method would have originally returned
   NSString *ImageColorString = [_preferences objectForKey:@"ImageShadowColor"];
