@@ -87,6 +87,10 @@ Created by:
 // Sublayers are CALayers
 // Set the color by modifying the sublayer's backgroundColor
 @end
+
+@interface _UIStatusBarImageView : UIView
+
+@end
 /*
 
 Convert our Color HEX
@@ -116,6 +120,22 @@ UIColor* fuckingHexColors(NSString* hexString) {
 
 NSUserDefaults *_preferences;
 BOOL _enabled;
+
+%hook _UIStatusBarImageView
+
+-(CALayer *)layer {
+  CALayer *origLayer = %orig; //our origLayer is what this method would have originally returned
+  NSString *ImageColorString = [_preferences objectForKey:@"ImageShadowColor"];
+  if (ImageColorString) {
+   origLayer.shadowColor = fuckingHexColors(ImageColorString).CGColor; 
+  }
+  origLayer.shadowRadius = 6;
+  origLayer.shadowOffset = CGSizeMake(0.0f,1.0f);
+  origLayer.shadowOpacity = 2;
+  return origLayer;
+}
+
+%end
 
 %hook _UIBatteryView
 
