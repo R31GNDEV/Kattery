@@ -98,6 +98,17 @@ Convert our Color HEX
 */
 
 UIColor* fuckingHexColors(NSString* hexString) {
+    if (!hexString) {
+        NSLog(@"Kattery: Warning, you’re wanting to fuck some hex colors, but did not supply a NSString for this function. This is a bug. Did you add a safety check?");
+	//we return white because nothing was passed in :P
+	//i was actually hesistent to program this safety check in because imo
+	//if we get a crash here - it should be extremely obvious whats happening.
+	//which means that yes, if in a finished product, we ship it without this and forget to include a safety check
+	//then the tweak will crash springboard, which arguably is worse, but then its highly obv something is wrong and what is
+	//meanwhile this makes it a bit harder to figure out...
+	//nonetheless, proceeding to craft this safety return white anywayz :P
+	return [UIColor whiteColor];
+    }
     NSString *daString = [hexString stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (![daString containsString:@"#"]) {
         daString = [@"#" stringByAppendingString:daString];
@@ -162,7 +173,10 @@ BOOL _enabled;
  for (UILabel * origSubview in subviews) {
   if ([origSubview isMemberOfClass:[UILabel class]]) {
    //our subview is a UILabel!
-   origSubview.textColor = fuckingHexColors(labelColor1);
+   //now, safety check...
+   if (labelColor1) {
+    origSubview.textColor = fuckingHexColors(labelColor1);
+   }
   }
  }
  return subviews;
