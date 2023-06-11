@@ -173,7 +173,10 @@ BOOL _enabled;
  for (UILabel * origSubview in subviews) {
   if ([origSubview isMemberOfClass:[UILabel class]]) {
    //our subview is a UILabel!
-   origSubview.textColor = fuckingHexColors(labelColor1);
+   //now, safety check...
+   if (labelColor1) {
+    origSubview.textColor = fuckingHexColors(labelColor1);
+   }
   }
  }
  return subviews;
