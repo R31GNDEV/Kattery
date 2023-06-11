@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 #import "KATTRootListController.h"
-#import <spawn.h>
 
 @implementation KATTRootListController
 
@@ -11,6 +10,18 @@
 	}
 
 	return _specifiers;
+}
+
+- (instancetype)init {
+    self = [super init];
+
+    if (self) {
+        HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
+        appearanceSettings.tintColor = [UIColor colorWithRed: 0.76 green: 0.61 blue: 0.83 alpha: 1.00];
+        appearanceSettings.tableViewCellSeparatorColor = [UIColor colorWithWhite:0 alpha:0];
+        self.hb_appearanceSettings = appearanceSettings;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {

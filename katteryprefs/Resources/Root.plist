@@ -19,18 +19,12 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-        	<string>The Best Battery Customization Tweak!</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSStaticTextCell</string>
-			<key>height</key>
-			<string>133</string>
-			<key>label</key>
-			<string></string>
-			<key>icon</key>
-			<string>KatteryImage.png</string>
+			<key>headerCellClass</key>
+			<string>HBPackageNameHeaderCell</string>
+			<key>packageIdentifier</key>
+			<string>online.transrights.kattery</string>
+			<key>titleColor</key>
+			<string>#FF99CC</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -395,6 +389,28 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>HBColorPickerTableCell</string>
+			<key>defaults</key>
+			<string>online.transrights.kattery</string>
+			<key>default</key>
+			<string>#33b5e5</string>
+			<key>key</key>
+			<string>fuckTextColor</string>
+			<key>label</key>
+			<string>Other Text Color (iPad Percent)</string>
+			<key>showAlphaSlider</key>
+			<true/>
+			<key>PostNotification</key>
+			<string>online.transrights.kattery/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>Links</string>
 		</dict>
@@ -437,6 +453,38 @@
 			<string>discord@2x.png</string>
 			<key>action</key>
 			<string>transDiscord</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+        	<string>The Best Status Bar Customization Tweak!</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSStaticTextCell</string>
+			<key>height</key>
+			<string>133</string>
+			<key>label</key>
+			<string></string>
+			<key>icon</key>
+			<string>KatteryImage.png</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerAlignment</key>
+			<string>1</string>
+			<key>footerText</key>
+			<string>Kattery 1.2</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerAlignment</key>
+			<string>1</string>
+			<key>footerText</key>
+			<string>2023 © R31GNDEV and 0xilis</string>
 		</dict>
 	</array>
 	<key>title</key>
