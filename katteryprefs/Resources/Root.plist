@@ -19,16 +19,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>headerCellClass</key>
-			<string>HBPackageNameHeaderCell</string>
-			<key>packageIdentifier</key>
-			<string>online.transrights.kattery</string>
-			<key>titleColor</key>
-			<string>#FF99CC</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>Battery Colors</string>
 		</dict>
@@ -402,7 +392,7 @@
 			<key>key</key>
 			<string>fuckTextColor</string>
 			<key>label</key>
-			<string>Other Text Color (iPad Percent)</string>
+			<string>Other Text Color (iPad Percent, testing)</string>
 			<key>showAlphaSlider</key>
 			<true/>
 			<key>PostNotification</key>

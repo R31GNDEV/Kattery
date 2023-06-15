@@ -1,6 +1,6 @@
 #import <Preferences/PSListController.h>
-#import <CepheiPrefs/CepheiPrefs.h>
-#import <Cephei/HBPreferences.h>
+//#import <CepheiPrefs/CepheiPrefs.h>
+//#import <Cephei/HBPreferences.h>
 #include "spawn.h"
 #include "rootless.h"
 

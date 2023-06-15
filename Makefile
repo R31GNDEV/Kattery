@@ -6,7 +6,7 @@ PREFIX = $(THEOS)/toolchain/linux/usr/bin/
 SYSROOT = $(THEOS)/sdks/iPhoneOS13.7.sdk
 INSTALL_TARGET_PROCESSES = SpringBoard
 #THEOS_PACKAGE_SCHEME = rootless
-Kattery_EXTRA_FRAMEWORKS +=  Cephei CepheiPrefs Alderis
+Kattery_EXTRA_FRAMEWORKS += Alderis
 ARCHS = arm64 arm64e
 
 include $(THEOS)/makefiles/common.mk

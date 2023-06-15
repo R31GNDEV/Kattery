@@ -1,7 +1,12 @@
 #import <Foundation/Foundation.h>
 #import "KATTRootListController.h"
+//#import <CepheiPrefs/CepheiPrefs.h>
+//#import <Cephei/HBPreferences.h>
+#include "spawn.h"
+#include "rootless.h"
 
 @implementation KATTRootListController
+
 
 
 - (NSArray *)specifiers {
@@ -11,7 +16,7 @@
 
 	return _specifiers;
 }
-
+/*
 - (instancetype)init {
     self = [super init];
 
@@ -23,7 +28,7 @@
     }
     return self;
 }
-
+*/
 - (void)viewDidLoad {
     [super viewDidLoad];
 

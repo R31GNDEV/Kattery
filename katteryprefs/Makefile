@@ -11,6 +11,6 @@ katteryprefs_PRIVATE_FRAMEWORKS = Preferences
 katteryprefs_INSTALL_PATH = /Library/PreferenceBundles
 katteryprefs_CFLAGS = -fobjc-arc
 katteryprefs_LIBRARIES = colorpicker
-# katteryprefs_EXTRA_FRAMEWORKS = Cephei CepheiPrefs Alderis
+#katteryprefs_EXTRA_FRAMEWORKS = Alderis
 
 include $(THEOS_MAKE_PATH)/bundle.mk
