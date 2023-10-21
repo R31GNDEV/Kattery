@@ -8,7 +8,7 @@ INSTALL_TARGET_PROCESSES = SpringBoard
 #THEOS_PACKAGE_SCHEME = rootless
 Kattery_EXTRA_FRAMEWORKS += Alderis
 ARCHS = arm64 arm64e
-
+FINALPACKAGE = 1
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = Kattery

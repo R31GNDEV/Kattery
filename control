@@ -1,6 +1,6 @@
 Package: online.transrights.kattery
 Name: Kattery
-Version: 1.2.0
+Version: 1.3.0
 Architecture: iphoneos-arm
 Description: Make your wifi, cellular, and battery glow! (With colors!!!)
 Maintainer: Kota & Snoolie
